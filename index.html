@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel=stylesheet type=text/css href="style.css">
+        <title>Neighborhood Map</title>
+    </head>
+	<body>
+        
+        <aside data-bind="css: {open: isOpen}">
+            <h1>Local Banks</h1>
+
+            <div class="user-input">
+                <input class="textbox" data-bind="textInput: userInput, event: {keyup: filterResults}" placeholder="Bank Name"/>
+                <div class="filter">Filter</div>
+            </div>
+
+            <ul class="church-list" data-bind="foreach: placesList">
+                <li class="church" data-bind="text: name, click: $root.showInfoWindow"></li>
+            </ul>
+        </aside>
+        
+        <main>
+            <header data-bind="click: toggleOpen">
+                <nav>&#9776;</nav>
+            </header>
+
+            <div id="map"></div>
+
+            <script type='text/javascript' src='js/jquery-3.3.1.min.js'></script>
+            <script type='text/javascript' src='js/knockout-3.4.2.js'></script>
+            <script type="text/javascript" src="js/app.js"></script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=&libraries=places&callback=initMap"></script>
+        </main>
+	</body>
+</html>
