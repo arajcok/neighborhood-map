@@ -64,7 +64,7 @@ aside>h1 {
     color: #1f2a37
 }
 
-.church-list {
+.bank-list {
     flex: 1;
     list-style-type: none;
     overflow-y: auto;
@@ -72,13 +72,13 @@ aside>h1 {
     margin: 0;
 }
 
-.church {
+.bank {
     cursor: pointer;
     color: #7e98b5;
     padding: 1em;
 }
 
-.church:hover {
+.bank:hover {
     color: #fff;
     background-color: #7e98b5;
 }
