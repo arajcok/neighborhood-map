@@ -146,7 +146,7 @@ function ViewModel(map, locations) {
      */
     self.toggleOpen = function() {
         self.isOpen(!self.isOpen());
-    } 
+    }; 
 }
 
 
