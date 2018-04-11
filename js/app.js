@@ -110,35 +110,31 @@ function ViewModel(map, locations) {
         // Wikipedia (MediaWiki) AJAX request
         let wikiUrl = 'https://en.wikipedia.org/w/api.php?format=json&action=query&list=search&srsearch=' + encodeURIComponent(place.name);
 
-        // Timeout function to handle "errors" in the jsonp request
-        let wikiTimeout = setTimeout(function() {
-            info += '<p>Failed to get Wikipedia resources</p>';
-            self.infoWindow.setContent(info);
-        }, 4000);
-
         $.ajax({
             url: wikiUrl,
-            dataType: 'jsonp',
-            success: function(data) {
-                if (data.query.search[0]) {
-                    // Save first article (which should be most relevant)
-                    let wikiArticleInfo = data.query.search[0];
-                    if (wikiArticleInfo.title) {
-                        let title = wikiArticleInfo.title;
-                        info += '<h4>Related Wikipedia Article:</h4>';
-                        info += '<p><a href="https://en.wikipedia.org/wiki/' + title + '">' + title + '</a></p>';
-                    }
-                } else {
-                    // Request succeeded, but no articles were found
-                    info += '<p>No Wikipedia articles found!</p>';
+            dataType: 'jsonp'
+        })
+        .done(function(data) {
+            if (data.query.search[0]) {
+                // Save first article (which should be most relevant)
+                let wikiArticleInfo = data.query.search[0];
+                if (wikiArticleInfo.title) {
+                    let title = wikiArticleInfo.title;
+                    info += '<h4>Related Wikipedia Article:</h4>';
+                    info += '<p><a href="https://en.wikipedia.org/wiki/' + title + '">' + title + '</a></p>';
                 }
-
-                clearTimeout(wikiTimeout);
-
-                // Update content of infoWindow
-                self.infoWindow.setContent(info);
+            } else {
+                // Request succeeded, but no articles were found
+                info += '<p>No Wikipedia articles found!</p>';
             }
-        });  
+
+            // Update content of infoWindow
+            self.infoWindow.setContent(info);
+        })
+        .fail(function() {
+            info += '<p>Failed to get Wikipedia resources</p>';
+            self.infoWindow.setContent(info);
+        }); 
     };
 
 
