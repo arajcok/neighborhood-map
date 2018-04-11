@@ -181,3 +181,10 @@ function initMap() {
         }
     }
 }
+
+/**
+ * @description Google Maps API Error Handler
+ */
+function googleMapError() {
+    window.alert('Failed to load Google Maps API');
+}
