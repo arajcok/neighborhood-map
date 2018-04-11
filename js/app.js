@@ -1,3 +1,5 @@
+const JILF = {lat: 40.0374771, lng: -74.2339456};
+
 /**
  * @description ViewModel
  * @param {Object} map - Google Maps Map object
@@ -152,19 +154,17 @@ function ViewModel(map, locations) {
  * @description Google Maps API
 */
 function initMap() {
-    const jilf = {lat: 40.0374771, lng: -74.2339456};
     let map = new google.maps.Map(document.getElementById('map'), {
-        center: jilf,
+        center: JILF,
         zoom: 13
     });
-
 
     // Prepopulate map with data from Nearby Search
     // This search identifies banks local to Jesus is Lord Fellowship Church
     // https://developers.google.com/maps/documentation/javascript/examples/place-search
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-        location: jilf,
+        location: JILF,
         radius: 5000,
         type: ['bank']
     }, placesCallback);
