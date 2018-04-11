@@ -76,6 +76,11 @@ function ViewModel(map, locations) {
      */
     self.showInfoWindow = function(place) {
         let info = '<h1>' + place.name + '</h1>';
+        let pendingInfo = '<p>Pending search...</p>';
+
+        // Open infoWindow
+        self.infoWindow.setContent(info + pendingInfo);
+        self.infoWindow.open(map, place.marker);
         
         // Get formatted address from latlng coordinates
         // https://developers.google.com/maps/documentation/javascript/examples/geocoding-reverse
@@ -109,7 +114,6 @@ function ViewModel(map, locations) {
         let wikiTimeout = setTimeout(function() {
             info += '<p>Failed to get Wikipedia resources</p>';
             self.infoWindow.setContent(info);
-            self.infoWindow.open(map, place.marker);
         }, 4000);
 
         $.ajax({
@@ -131,9 +135,8 @@ function ViewModel(map, locations) {
 
                 clearTimeout(wikiTimeout);
 
-                // Open infoWindow
+                // Update content of infoWindow
                 self.infoWindow.setContent(info);
-                self.infoWindow.open(map, place.marker);
             }
         });  
     };
